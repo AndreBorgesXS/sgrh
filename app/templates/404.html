@@ -1,0 +1,20 @@
+{# 404.html #}
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-warning">
+                    <h3 class="text-center mb-0">Página não encontrada</h3>
+                </div>
+                <div class="card-body text-center">
+                    <h1 class="display-1">404</h1>
+                    <p class="lead mb-4">Desculpe, a página que você está procurando não existe.</p>
+                    <a href="{{ url_for('index') }}" class="btn btn-primary">Voltar para Página Inicial</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

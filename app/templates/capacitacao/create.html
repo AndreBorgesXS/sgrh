@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h1>Cadastrar Capacitação</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.tipo.label }}<br>
+        {{ form.tipo(class="form-control") }}<br>
+        {{ form.data_conclusao.label }}<br>
+        {{ form.data_conclusao(class="form-control") }}<br>
+        {{ form.pessoa_id.label }}<br>
+        {{ form.pessoa_id(class="form-control") }}<br>
+        {{ form.submit(class="btn btn-primary") }}
+    </form>
+</div>
+{% endblock %}

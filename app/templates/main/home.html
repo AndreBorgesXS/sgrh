@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1>Bem-vindo(a) à Kopecode</h1>
+    <p>Autentique-se para acessar os recursos.</p>
+    {% if current_user.is_authenticated %}
+        <p>Olá, {{ current_user.email }}! Seu último login foi em {{ current_user.last_login.strftime('%d/%m/%Y') }}</p>
+        <a href="{{ url_for('main.dashboard') }}" class="btn btn-primary">Ir para o Dashboard</a>
+    {% else %}
+        <a href="{{ url_for('main.login') }}" class="btn btn-primary">Entrar</a>
+        <a href="{{ url_for('main.register') }}" class="btn btn-secondary">Cadastrar-se</a>
+    {% endif %}
+</div>
+{% endblock %}

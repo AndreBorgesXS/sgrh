@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h1>Profissões</h1>
+
+    <!-- Form to create a new Profissão -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <form method="POST" action="{{ url_for('profissao.create') }}">
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                    {{ form.cargo.label }}<br>
+                    {{ form.cargo(class="form-control") }}
+                </div>
+                <button type="submit" class="btn btn-primary">Adicionar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- List of Profissões -->
+    <div class="card">
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Cargo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for profissao in profissoes %}
+                    <tr>
+                        <td>{{ profissao.id }}</td>
+                        <td>{{ profissao.cargo }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

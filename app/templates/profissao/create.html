@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h1>Cadastrar Profissão</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.cargo.label }}<br>
+        {{ form.cargo(class="form-control") }}<br>
+        {{ form.pessoa_id.label }}<br>
+        {{ form.pessoa_id(class="form-control") }}<br>
+        {{ form.submit(class="btn btn-primary") }}
+    </form>
+</div>
+{% endblock %}

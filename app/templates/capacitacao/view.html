@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h3>Detalhes da Capacitação</h3>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <tr>
+                    <th>Tipo de Capacitação</th>
+                    <td>{{ capacitacao.tipo }}</td>
+                </tr>
+                <tr>
+                    <th>Data de Conclusão</th>
+                    <td>{{ capacitacao.data_conclusao.strftime('%d/%m/%Y') if capacitacao.data_conclusao else '-' }}</td>
+                </tr>
+                <tr>
+                    <th>ID da Pessoa</th>
+                    <td>{{ capacitacao.pessoa_id }}</td>
+                </tr>
+            </table>
+            <a href="{{ url_for('capacitacao.index') }}" class="btn btn-secondary">Voltar</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

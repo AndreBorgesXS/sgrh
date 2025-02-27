@@ -1,0 +1,22 @@
+{% macro render_field(field) %}
+    <div class="mb-3">
+        {{ field.label(class="form-label") }}
+        {% if field.type == "BooleanField" %}
+            {{ field(class="form-check-input") }}
+        {% else %}
+            {{ field(class="form-control" + (" is-invalid" if field.errors else "")) }}
+        {% endif %}
+        {% if field.errors %}
+            {% for error in field.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endmacro %}
+
+{% macro render_submit(text="Salvar") %}
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary">{{ text }}</button>
+        <a href="{{ url_for(request.endpoint.rsplit('.', 1)[0] + '.index') }}" class="btn btn-secondary">Cancelar</a>
+    </div>
+{% endmacro %}

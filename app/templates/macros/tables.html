@@ -1,0 +1,47 @@
+{% macro render_table(items, columns, actions=True) %}
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    {% for column in columns %}
+                        <th>{{ column.label }}</th>
+                    {% endfor %}
+                    {% if actions %}
+                        <th>Ações</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                    <tr>
+                        {% for column in columns %}
+                            <td>{{ item[column.key]|default('-') }}</td>
+                        {% endfor %}
+                        {% if actions %}
+                            <td>
+                                <a href="{{ url_for(request.endpoint.rsplit('.', 1)[0] + '.view', id=item.id) }}" 
+                                   class="btn btn-sm btn-info" title="Visualizar">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="{{ url_for(request.endpoint.rsplit('.', 1)[0] + '.edit', id=item.id) }}" 
+                                   class="btn btn-sm btn-warning" title="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <button type="button" class="btn btn-sm btn-danger" 
+                                        onclick="confirmarExclusao('{{ item.id }}')" title="Excluir">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="{{ columns|length + (1 if actions else 0) }}" class="text-center">
+                            Nenhum registro encontrado
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endmacro %}

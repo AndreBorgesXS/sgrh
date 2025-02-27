@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h1>Cadastrar Pessoa</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.nome.label }}<br>
+        {{ form.nome(class="form-control") }}<br>
+        {{ form.idade.label }}<br>
+        {{ form.idade(class="form-control") }}<br>
+        {{ form.submit(class="btn btn-primary") }}
+    </form>
+</div>
+{% endblock %}

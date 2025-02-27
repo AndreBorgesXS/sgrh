@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Capacitações</h1>
+    <a href="{{ url_for('capacitacao.create') }}" class="btn btn-primary mb-3">Adicionar Capacitação</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tipo</th>
+                <th>Data de Conclusão</th>
+                <th>Pessoa</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for c in capacitacoes %}
+                <tr>
+                    <td>{{ c.id }}</td>
+                    <td>{{ c.tipo }}</td>
+                    <td>{{ c.data_conclusao.strftime('%d/%m/%Y') if c.data_conclusao else '-' }}</td>
+                    <td>{{ c.pessoa_id }}</td>
+                    <td>
+                        <a href="{{ url_for('capacitacao.view', id=c.id) }}" class="btn btn-sm btn-info">Ver</a>
+                        <a href="{{ url_for('capacitacao.edit', id=c.id) }}" class="btn btn-sm btn-warning">Editar</a>
+                        <form action="{{ url_for('capacitacao.delete', id=c.id) }}" method="POST" style="display: inline;">
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Excluir?')">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h3>Editar Capacitação</h3>
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                {{ form.hidden_tag() }}
+                {{ form.tipo.label }} <br>
+                {{ form.tipo(class="form-control") }} <br>
+                {{ form.data_conclusao.label }} <br>
+                {{ form.data_conclusao(class="form-control") }} <br>
+                {{ form.pessoa_id.label }} <br>
+                {{ form.pessoa_id(class="form-control") }} <br>
+                {{ form.submit(class="btn btn-primary") }}
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
