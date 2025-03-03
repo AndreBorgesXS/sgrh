@@ -1,14 +1,22 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify
+from flask_wtf import FlaskForm
+
 from app.models import db, Pessoa
 from app.pessoa.forms import PessoaForm
 from . import pessoa_bp
 from flask_login import login_required
+from .forms import DeleteForm
+
+class DeleteForm(FlaskForm):
+    """Empty form to generate CSRF token."""
+    pass
 
 @pessoa_bp.route('/')
 @login_required
 def index():
     pessoas = Pessoa.query.all()
-    return render_template('pessoa/index.html', pessoas=pessoas)
+    delete_form = DeleteForm()  # Create an instance of the delete form
+    return render_template('pessoa/index.html', pessoas=pessoas, form=delete_form)
 
 
 @pessoa_bp.route('/create', methods=['GET', 'POST'])
@@ -45,14 +53,13 @@ def view(id):
     return render_template('pessoa/view.html', pessoa=pessoa)
 
 
-@pessoa_bp.route('/delete/<int:id>', methods=['DELETE'])
+@pessoa_bp.route('/delete/<int:id>', methods=['POST'])
 @login_required
 def delete(id):
-    pessoa = Pessoa.query.get_or_404(id)
-    try:
+    form = DeleteForm()  # Include CSRF protection
+    if form.validate_on_submit():
+        pessoa = Pessoa.query.get_or_404(id)
         db.session.delete(pessoa)
         db.session.commit()
-        return jsonify({'success': True, 'message': 'Pessoa excluída com sucesso!'})
-    except Exception as e:
-        db.session.rollback()
-        return jsonify({'success': False, 'message': 'Erro ao excluir pessoa!'}), 400
+        flash('Pessoa excluída com sucesso!', 'success')
+    return redirect(url_for('pessoa.index'))

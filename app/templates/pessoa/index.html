@@ -21,8 +21,12 @@
                 <td>
                     <a href="{{ url_for('pessoa.view', id=pessoa.id) }}" class="btn btn-sm btn-info">Ver</a>
                     <a href="{{ url_for('pessoa.edit', id=pessoa.id) }}" class="btn btn-sm btn-warning">Editar</a>
-                    <form action="{{ url_for('pessoa.delete', id=pessoa.id) }}" method="POST" style="display: inline;">
-                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Excluir?')">Excluir</button>
+
+                    <!-- POST Form for Deletion -->
+                     <form action="{{ url_for('pessoa.delete', id=pessoa.id) }}" method="POST">
+                        {{ form.hidden_tag() }} <!-- CSRF token -->
+                        <button type="submit" class="btn btn-sm btn-danger"
+                                onclick="return confirm('Excluir?')">Excluir</button>
                     </form>
                 </td>
             </tr>

@@ -3,6 +3,8 @@ from wtforms import StringField, SubmitField
 from wtforms.fields.numeric import IntegerField
 from wtforms.validators import DataRequired, Length
 
+class DeleteForm(FlaskForm):
+    pass
 
 class PessoaForm(FlaskForm):
     nome = StringField('Nome', validators=[DataRequired()])
