@@ -2,14 +2,10 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for,
 from flask_wtf import FlaskForm
 
 from app.models import db, Pessoa
-from app.pessoa.forms import PessoaForm
+from app.pessoa.forms import PessoaForm, DeleteForm
 from . import pessoa_bp
 from flask_login import login_required
-from .forms import DeleteForm
 
-class DeleteForm(FlaskForm):
-    """Empty form to generate CSRF token."""
-    pass
 
 @pessoa_bp.route('/')
 @login_required
@@ -56,10 +52,13 @@ def view(id):
 @pessoa_bp.route('/delete/<int:id>', methods=['POST'])
 @login_required
 def delete(id):
-    form = DeleteForm()  # Include CSRF protection
+    form = DeleteForm()  # Use the imported form
     if form.validate_on_submit():
         pessoa = Pessoa.query.get_or_404(id)
         db.session.delete(pessoa)
         db.session.commit()
         flash('Pessoa excluída com sucesso!', 'success')
+    else:
+        # Debug CSRF failure
+        flash('Erro ao excluir. Verifique o log do servidor.', 'danger')
     return redirect(url_for('pessoa.index'))
